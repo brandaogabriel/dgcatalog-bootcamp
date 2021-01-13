@@ -1,6 +1,5 @@
-package com.devgabriel.dgcatalog.resources;
+package com.devgabriel.dgcatalog.resources.exceptions;
 
-import com.devgabriel.dgcatalog.resources.exceptions.StandardError;
 import com.devgabriel.dgcatalog.services.exceptions.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
