@@ -40,17 +40,17 @@ public class ProductResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO ProductDTO) {
-		ProductDTO = service.insert(ProductDTO);
+	public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO productDTO) {
+		productDTO = service.insert(productDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-				.buildAndExpand(ProductDTO.getId()).toUri();
-		return ResponseEntity.created(uri).body(ProductDTO);
+				.buildAndExpand(productDTO.getId()).toUri();
+		return ResponseEntity.created(uri).body(productDTO);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO ProductDTO) {
-		ProductDTO = service.update(id, ProductDTO);
-		return ResponseEntity.ok().body(ProductDTO);
+	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+		productDTO = service.update(id, productDTO);
+		return ResponseEntity.ok().body(productDTO);
 	}
 
 	@DeleteMapping(value = "/{id}")

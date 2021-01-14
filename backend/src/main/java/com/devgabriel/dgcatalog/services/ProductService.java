@@ -1,7 +1,10 @@
 package com.devgabriel.dgcatalog.services;
 
+import com.devgabriel.dgcatalog.dtos.CategoryDTO;
 import com.devgabriel.dgcatalog.dtos.ProductDTO;
+import com.devgabriel.dgcatalog.entities.Category;
 import com.devgabriel.dgcatalog.entities.Product;
+import com.devgabriel.dgcatalog.repositories.CategoryRepository;
 import com.devgabriel.dgcatalog.repositories.ProductRepository;
 import com.devgabriel.dgcatalog.services.exceptions.DatabaseException;
 import com.devgabriel.dgcatalog.services.exceptions.ResourceNotFoundException;
@@ -22,6 +25,9 @@ public class ProductService {
 	@Autowired
 	private ProductRepository repository;
 
+	@Autowired
+	private CategoryRepository categoryRepository;
+
 	@Transactional(readOnly = true)
 	public Page<ProductDTO> findAllPaged(PageRequest pageRequest) {
 		Page<Product> products = repository.findAll(pageRequest);
@@ -36,20 +42,20 @@ public class ProductService {
 	}
 
 	@Transactional
-	public ProductDTO insert(ProductDTO ProductDTO) {
-		Product Product = new Product();
-//		Product.setName(ProductDTO.getName());
-		Product = repository.save(Product);
-		return new ProductDTO(Product);
+	public ProductDTO insert(ProductDTO productDTO) {
+		Product product = new Product();
+		copyDtoToEntity(productDTO, product);
+		product = repository.save(product);
+		return new ProductDTO(product);
 	}
 
 	@Transactional
-	public ProductDTO update(Long id, ProductDTO ProductDTO) {
+	public ProductDTO update(Long id, ProductDTO productDTO) {
 		try {
-			Product Product = repository.getOne(id);
-//			Product.setName(ProductDTO.getName());
-			Product = repository.save(Product);
-			return new ProductDTO(Product);
+			Product product = repository.getOne(id);
+			copyDtoToEntity(productDTO, product);
+			product = repository.save(product);
+			return new ProductDTO(product);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found " + id);
 		}
@@ -64,4 +70,21 @@ public class ProductService {
 			throw new DatabaseException("Integrity violation");
 		}
 	}
+
+	private void copyDtoToEntity(ProductDTO productDTO, Product entity) {
+
+		entity.setName(productDTO.getName());
+		entity.setDescription(productDTO.getDescription());
+		entity.setPrice(productDTO.getPrice());
+		entity.setImgUrl(productDTO.getImgUrl());
+		entity.setDate(productDTO.getDate());
+
+		entity.getCategories().clear();
+		for (CategoryDTO catDto : productDTO.getCategories()) {
+			Category category = categoryRepository.getOne(catDto.getId());
+			entity.getCategories().add(category);
+		}
+
+	}
+
 }
