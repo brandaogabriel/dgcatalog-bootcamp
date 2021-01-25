@@ -5,6 +5,7 @@ import Navbar from './core/components/Navbar';
 
 import Admin from './pages/Admin';
 import Catalog from './pages/Catalog';
+import ProductDetails from './pages/Catalog/components/ProductDetails';
 import Home from './pages/Home';
 
 const Routes = (): JSX.Element => (
@@ -14,8 +15,11 @@ const Routes = (): JSX.Element => (
       <Route path="/" exact>
         <Home />
       </Route>
-      <Route path="/catalog">
+      <Route path="/products" exact>
         <Catalog />
+      </Route>
+      <Route path="/products/:id">
+        <ProductDetails />
       </Route>
       <Route path="/admin">
         <Admin />
