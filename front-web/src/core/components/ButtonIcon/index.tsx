@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ReactComponent as ArrowIcon } from '../../assets/images/arrow.svg';
-import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
