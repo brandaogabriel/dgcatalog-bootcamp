@@ -1,24 +1,17 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import Form from './Form';
+import List from './List';
 
 const Products = (): JSX.Element => {
   return (
     <div>
-      <Link to="/admin/products" className="mr-5">
-        Listar produtos
-      </Link>
-      <Link to="/admin/products/create" className="mr-5">
-        Criar produtos
-      </Link>
-      <Link to="/admin/products/10" className="mr-5">
-        Editar produtos
-      </Link>
       <Switch>
         <Route path="/admin/products" exact>
-          <h1>Listagem de produtos</h1>
+          <List />
         </Route>
         <Route path="/admin/products/create">
-          <h1>Criação de produtos</h1>
+          <Form />
         </Route>
         <Route path="/admin/products/:id">
           <h1>Edição de produtos</h1>
