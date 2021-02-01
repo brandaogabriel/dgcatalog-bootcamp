@@ -1,8 +1,9 @@
 import React from 'react';
+import Navbar from './components/Navbar';
 
 const Admin = (): JSX.Element => (
   <div>
-    <h1>Admin</h1>
+    <Navbar />
   </div>
 );
 
