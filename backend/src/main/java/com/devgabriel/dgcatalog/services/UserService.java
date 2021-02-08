@@ -3,6 +3,7 @@ package com.devgabriel.dgcatalog.services;
 import com.devgabriel.dgcatalog.dtos.RoleDTO;
 import com.devgabriel.dgcatalog.dtos.UserDTO;
 import com.devgabriel.dgcatalog.dtos.UserInsertDTO;
+import com.devgabriel.dgcatalog.dtos.UserUpdateDTO;
 import com.devgabriel.dgcatalog.entities.Role;
 import com.devgabriel.dgcatalog.entities.User;
 import com.devgabriel.dgcatalog.repositories.RoleRepository;
@@ -56,10 +57,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO update(Long id, UserDTO userDTO) {
+	public UserDTO update(Long id, UserUpdateDTO userUpdateDTO) {
 		try {
 			User user = repository.getOne(id);
-			copyDtoToEntity(userDTO, user);
+			copyDtoToEntity(userUpdateDTO, user);
 			user = repository.save(user);
 			return new UserDTO(user);
 		} catch (EntityNotFoundException e) {
