@@ -2,6 +2,8 @@ package com.devgabriel.dgcatalog.dtos;
 
 import com.devgabriel.dgcatalog.entities.User;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,12 @@ public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+
+	@NotBlank(message = "Nome requerido")
 	private String firstName;
 	private String lastName;
+
+	@Email(message = "E-mail inválido")
 	private String email;
 
 	private List<RoleDTO> roles = new ArrayList();

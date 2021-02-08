@@ -3,6 +3,10 @@ package com.devgabriel.dgcatalog.dtos;
 import com.devgabriel.dgcatalog.entities.Category;
 import com.devgabriel.dgcatalog.entities.Product;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -14,10 +18,17 @@ public class ProductDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+
+	@Size(min = 5, max = 30, message = "Nome deve ter entre 5 e 30 caracteres")
+	@NotBlank(message = "Nome requerido")
 	private String name;
 	private String description;
+
+	@Positive(message = "Preço deve ser um valor positivo")
 	private Double price;
 	private String imgUrl;
+
+	@PastOrPresent(message = "A data do produto não poder ser futura")
 	private Instant date;
 
 	private List<CategoryDTO> categories = new ArrayList<>();
