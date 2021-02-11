@@ -20,26 +20,14 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.NOT_FOUND;
-		StandardError err = new StandardError();
-		err.setTimeStamp(Instant.now());
-		err.setStatus(status.value());
-		err.setError("Resource not found");
-		err.setMessage(e.getMessage());
-		err.setPath(request.getRequestURI());
-
+		StandardError err = createStandardError(status, e.getMessage(), "Resource not found", request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 
 	@ExceptionHandler(DatabaseException.class)
 	public ResponseEntity<StandardError> integrityViolation(DatabaseException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		StandardError err = new StandardError();
-		err.setTimeStamp(Instant.now());
-		err.setStatus(status.value());
-		err.setError("Database exception");
-		err.setMessage(e.getMessage());
-		err.setPath(request.getRequestURI());
-
+		StandardError err = createStandardError(status, e.getMessage(), "Resource not found", request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 
@@ -62,40 +50,26 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(AmazonServiceException.class)
 	public ResponseEntity<StandardError> amazonService(AmazonServiceException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		StandardError err = new StandardError();
-		err.setTimeStamp(Instant.now());
-		err.setStatus(status.value());
-		err.setError("AWS Exception");
-		err.setMessage(e.getMessage());
-		err.setPath(request.getRequestURI());
-
+		StandardError err = createStandardError(status, e.getMessage(), "AWS Exception", request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 
 	@ExceptionHandler(AmazonClientException.class)
 	public ResponseEntity<StandardError> amazonClient(AmazonClientException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		StandardError err = new StandardError();
-		err.setTimeStamp(Instant.now());
-		err.setStatus(status.value());
-		err.setError("AWS Exception");
-		err.setMessage(e.getMessage());
-		err.setPath(request.getRequestURI());
-
+		StandardError err = createStandardError(status, e.getMessage(), "AWS Exception", request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<StandardError> illegalArgument(IllegalArgumentException e, HttpServletRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		StandardError err = new StandardError();
-		err.setTimeStamp(Instant.now());
-		err.setStatus(status.value());
-		err.setError("Bad Request");
-		err.setMessage(e.getMessage());
-		err.setPath(request.getRequestURI());
-
+		StandardError err = createStandardError(status, e.getMessage(), "Bad request", request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
+	}
+
+	private StandardError createStandardError(HttpStatus status, String error, String message, String requestUri) {
+		return new StandardError(Instant.now(), status.value(), error, message, requestUri);
 	}
 
 }
