@@ -1,6 +1,7 @@
 package com.devgabriel.dgcatalog.resources;
 
 import com.devgabriel.dgcatalog.dtos.ProductDTO;
+import com.devgabriel.dgcatalog.dtos.UriDTO;
 import com.devgabriel.dgcatalog.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -47,6 +49,12 @@ public class ProductResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(productDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(productDTO);
+	}
+
+	@PostMapping(value = "/image")
+	public ResponseEntity<UriDTO> uploadImage(@RequestParam("file") MultipartFile file) {
+		UriDTO uriDTO = this.service.uploadFile(file);
+		return ResponseEntity.ok().body(uriDTO);
 	}
 
 	@PutMapping(value = "/{id}")
