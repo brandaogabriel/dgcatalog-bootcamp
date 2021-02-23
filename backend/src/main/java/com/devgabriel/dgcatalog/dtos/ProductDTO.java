@@ -3,10 +3,7 @@ package com.devgabriel.dgcatalog.dtos;
 import com.devgabriel.dgcatalog.entities.Category;
 import com.devgabriel.dgcatalog.entities.Product;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -33,6 +30,7 @@ public class ProductDTO implements Serializable {
 	@PastOrPresent(message = "A data do produto não poder ser futura")
 	private Instant date;
 
+	@NotEmpty(message = "Produto sem categoria não é permitido")
 	private List<CategoryDTO> categories = new ArrayList<>();
 
 	public ProductDTO(){
