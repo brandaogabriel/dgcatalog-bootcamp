@@ -2,6 +2,8 @@ package com.devgabriel.dgcatalog.dtos;
 
 import com.devgabriel.dgcatalog.entities.Category;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class CategoryDTO implements Serializable {
@@ -9,6 +11,9 @@ public class CategoryDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+
+	@Size(min = 4, max = 10, message = "Nome da categoria deve ter entre 4 e 10 caracteres")
+	@NotBlank(message = "Nome da categoria é obrigatório")
 	private String name;
 
 	public CategoryDTO() {

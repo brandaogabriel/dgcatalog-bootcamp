@@ -13,4 +13,10 @@ public class CategoryFactory {
 		Category category = createCategory();
 		return new CategoryDTO(category);
 	}
+
+	public static CategoryDTO createCategoryDTO(Long id) {
+		CategoryDTO categoryDTO = createCategoryDTO();
+		categoryDTO.setId(id);
+		return categoryDTO;
+	}
 }
