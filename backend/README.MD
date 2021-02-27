@@ -12,7 +12,7 @@ java configurado e uma IDE de sua preferência.
 - **O backend está setado em modo de PRODUÇÃO, acesse `src/main/resources/application.properties` e
   troque `spring.profiles.active=prod` por `spring.profiles.active=test`. Com essa mudança, será
   utilizado o banco de dados em memória (H2).**
-- **O sistema utilizada o serviço da AWS de armazenamento de arquivos, S3, dessa forma é necessário
+- **O sistema utiliza o serviço da AWS de armazenamento de arquivos, S3, dessa forma é necessário
   que você crie um "bucket" bem como configure as credenciais que estão definidas em
   `main/resources/application.properties`.**
   ````
