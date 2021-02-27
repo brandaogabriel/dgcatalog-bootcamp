@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -136,6 +137,37 @@ class ProductResourceTests {
 	}
 
 	@Test
+	void insertShouldReturnUnprocessableEntityWhenNameSizeIsInsufficient() throws Exception {
+		String accessToken = obtainAccessToken(operatorUsername, operatorPassword);
+
+		newProductDTO.setName("celu");
+		String jsonBody = objectMapper.writeValueAsString(newProductDTO);
+
+		mockMvc.perform(post("/products")
+				.header("Authorization", "Bearer " + accessToken)
+				.content(jsonBody)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isUnprocessableEntity());
+	}
+
+	@Test
+	void insertShouldReturnUnprocessableEntityWhenDescriptionIsNull() throws Exception {
+		String accessToken = obtainAccessToken(operatorUsername, operatorPassword);
+
+		newProductDTO.setDescription(null);
+		String jsonBody = objectMapper.writeValueAsString(newProductDTO);
+
+		mockMvc.perform(post("/products")
+				.header("Authorization", "Bearer " + accessToken)
+				.content(jsonBody)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andDo(print())
+				.andExpect(status().isUnprocessableEntity());
+	}
+
+	@Test
 	void insertShouldReturnUnprocessableEntityWhenPriceIsNotPositive() throws Exception {
 		String accessToken = obtainAccessToken(operatorUsername, operatorPassword);
 
@@ -147,6 +179,22 @@ class ProductResourceTests {
 				.content(jsonBody)
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isUnprocessableEntity());
+	}
+
+	@Test
+	void insertShouldReturnUnprocessableEntityWhenDataIsFuture() throws Exception {
+		String accessToken = obtainAccessToken(operatorUsername, operatorPassword);
+
+		newProductDTO.setDate(Instant.parse("2025-11-30T03:00:00Z"));
+		String jsonBody = objectMapper.writeValueAsString(newProductDTO);
+
+		mockMvc.perform(post("/products")
+				.header("Authorization", "Bearer " + accessToken)
+				.content(jsonBody)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andDo(print())
 				.andExpect(status().isUnprocessableEntity());
 	}
 
