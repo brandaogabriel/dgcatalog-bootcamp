@@ -1,4 +1,5 @@
 # 💻 Back end Dg Catalog
+[![Build Status](https://travis-ci.org/brandaogabriel/dgcatalog-bootcamp.svg?branch=main)](https://travis-ci.org/brandaogabriel/dgcatalog-bootcamp)
 
 A api foi desenvolvida durante o bootcamp realizado na DevSuperior.
 
