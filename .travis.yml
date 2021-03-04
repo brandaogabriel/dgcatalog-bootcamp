@@ -4,3 +4,15 @@ jdk:
 before_install:
   - cd backend
   - chmod +x mvnw
+  - ./mvnw clean package
+script:
+  - docker build -t dgcatalog:latest .
+before_deploy:
+  echo "$DOCKERHUB_PASSWORD" | docker login --username "$DOCKERHUB_USER" --password-stdin
+deploy:
+  provider: script
+  script:
+    docker tag dgcatalog:latest $DOCKERHUB_USER/dgcatalog:latest;
+    docker push $DOCKERHUB_USER/dgcatalog;
+  on:
+    branch: main
