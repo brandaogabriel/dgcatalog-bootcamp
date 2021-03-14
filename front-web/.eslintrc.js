@@ -24,5 +24,11 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
+    'prettier/prettier': [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
   },
 };
