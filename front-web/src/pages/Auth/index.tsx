@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import { ReactComponent as AuthImage } from 'core/assets/images/auth.svg';
 import './styles.scss';
+import Login from './components/Login';
 
 const Auth = (): JSX.Element => {
   return (
@@ -19,7 +20,7 @@ const Auth = (): JSX.Element => {
       <div className="auth-content">
         <Switch>
           <Route path="/admin/auth/login">
-            <h1>Login</h1>
+            <Login />
           </Route>
           <Route path="/admin/auth/register">
             <h1>Register</h1>
