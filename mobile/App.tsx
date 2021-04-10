@@ -1,12 +1,15 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+
+import Routes from './src/routes';
 
 const App = (): JSX.Element => {
   return (
-    <View>
-      <Text>Olá!</Text>
-    </View>
+    <NavigationContainer>
+      {/* Rotas */}
+      <Routes />
+    </NavigationContainer>
   );
 }
 
